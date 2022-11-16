@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from PIL import Image
 
@@ -11,7 +10,6 @@ from pages.Veu import *
 from utils import regex
 from utils.utils import call_model, return_proba
 
-image = Image.open('img/cogumelo.jpg')
 esquema_cogumelo = Image.open('img/esquema_cogumelo.jpg')
 
 st.set_page_config(

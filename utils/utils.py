@@ -1,7 +1,6 @@
 import pickle
 import numpy as np
 import streamlit as st
-from pandas import DataFrame
 
 
 def call_model() -> pickle:

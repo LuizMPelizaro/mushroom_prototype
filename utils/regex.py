@@ -1,30 +1,3 @@
-#
-# data = {
-#     'cap-shape': ['Sino'],
-#     'cap-surface': ['Fibroso'],
-#     'cap-color': ['Marrom'],
-#     'bruises': ['Sim'],
-#     'odor': ['Amêndoa'],
-#     'gill-attachment': ['Anexado'],
-#     'gill-spacing': ['Perto'],
-#     'gill-size': ['Largo'],
-#     'gill-color': ['Preto'],
-#     'stalk-shape': ['Ampliação'],
-#     'stalk-root': ['Bulboso'],
-#     'stalk-surface-above-ring': ['Fibroso'],
-#     'stalk-surface-below-ring': ['Fibroso'],
-#     'stalk-color-above-ring': ['Marrom'],
-#     'stalk-color-below-ring': ['Marrom'],
-#     'veil-type': ['Parcial'],
-#     'veil-color': ['Marrom'],
-#     'ring-number': ['Nenhum'],
-#     'ring-type': ['Teia'],
-#     'spore-print-color': ['Preto'],
-#     'population': ['Abundante'],
-#     'habitat': ['Grama']
-# }
-
-
 class RegexMush:
     def __init__(self, dict_mush: dict):
         self.__dict_mush = dict_mush
@@ -190,7 +163,7 @@ class RegexMush:
                     self.dict_mush[key] = ['?']
                 else:
                     raise ValueError
-            elif key == 'stalk-surface-above-ring':
+            elif key == 'stalk-surface-above-ring' or key == 'stalk-surface-below-ring':
                 if self.dict_mush[key] == ['Fibroso']:
                     self.dict_mush[key] = ['f']
                 elif self.dict_mush[key] == ['Escamoso']:
@@ -201,39 +174,7 @@ class RegexMush:
                     self.dict_mush[key] = ['s']
                 else:
                     raise ValueError
-            elif key == 'stalk-surface-below-ring':
-                if self.dict_mush[key] == ['Fibroso']:
-                    self.dict_mush[key] = ['f']
-                elif self.dict_mush[key] == ['Escamoso']:
-                    self.dict_mush[key] = ['y']
-                elif self.dict_mush[key] == ['Sedoso']:
-                    self.dict_mush[key] = ['k']
-                elif self.dict_mush[key] == ['Liso']:
-                    self.dict_mush[key] = ['s']
-                else:
-                    raise ValueError
-            elif key == 'stalk-color-above-ring':
-                if self.dict_mush[key] == ['Marrom']:
-                    self.dict_mush[key] = ['n']
-                elif self.dict_mush[key] == ['Bege']:
-                    self.dict_mush[key] = ['b']
-                elif self.dict_mush[key] == ['Canela']:
-                    self.dict_mush[key] = ['c']
-                elif self.dict_mush[key] == ['Cinza']:
-                    self.dict_mush[key] = ['g']
-                elif self.dict_mush[key] == ['Laranja']:
-                    self.dict_mush[key] = ['o']
-                elif self.dict_mush[key] == ['Rosa']:
-                    self.dict_mush[key] = ['p']
-                elif self.dict_mush[key] == ['Vermelho']:
-                    self.dict_mush[key] = ['e']
-                elif self.dict_mush[key] == ['Branco']:
-                    self.dict_mush[key] = ['w']
-                elif self.dict_mush[key] == ['Amarelo']:
-                    self.dict_mush[key] = ['y']
-                else:
-                    raise ValueError
-            elif key == 'stalk-color-below-ring':
+            elif key == 'stalk-color-above-ring' or key == 'stalk-color-below-ring':
                 if self.dict_mush[key] == ['Marrom']:
                     self.dict_mush[key] = ['n']
                 elif self.dict_mush[key] == ['Bege']:
@@ -353,4 +294,3 @@ class RegexMush:
                     self.dict_mush[key] = ['d']
                 else:
                     raise ValueError
-
