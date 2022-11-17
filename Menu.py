@@ -1,12 +1,7 @@
 import pandas as pd
 from PIL import Image
 
-from pages.Anel import *
-from pages.Chapeu import *
-from pages.Estipe import *
-from pages.Guelras import *
-from pages.Outros import *
-from pages.Veu import *
+import streamlit as st
 from utils import regex
 from utils.utils import call_model, return_proba
 
@@ -22,7 +17,127 @@ st.set_page_config(
 st.markdown("# Classificador de cogumelos")
 st.image(esquema_cogumelo)
 
-st.sidebar.title("Selecione a parte do cogumelo")
+st.markdown("## Chapéu da cogumelo")
+cap_shape = st.selectbox(
+    'Forma do chapéu:',
+    ['Sino', 'Cone', 'Convexo', 'Plano', ' Arredondada', 'Fundo']
+)
+
+cap_surface = st.selectbox(
+    'Superfície do chapéu:',
+    ['Fibroso', 'Sulcos', 'Escamoso', 'Liso']
+)
+
+cap_color = st.selectbox(
+    'Cor do chapéu:',
+    ['Marrom', 'Bege', 'Canela', 'Cinza', 'Verde', 'Rosa', 'Roxo', 'Vermelho', 'Branco', 'Amarelo']
+)
+
+st.markdown("## Estipe do cogumelo")
+
+stalk_shape = st.selectbox(
+    'Forma da estipe:',
+    ['Ampliação', 'Afunilado']
+)
+
+stalk_root = st.selectbox(
+    'Raiz da estipe:',
+    ['Bulboso', 'Clube', 'Copo', 'Uniforme', 'Rizomorfos', 'Enraizado', 'Faltante']
+)
+
+stalk_surface_above_ring = st.selectbox(
+    'Superfície da estipe acima do anel:',
+    ['Fibroso', 'Escamoso', 'Sedoso', 'Liso']
+)
+
+stalk_surface_below_ring = st.selectbox(
+    'Superfície da estipe abaixo do anel:',
+    ['Fibroso', 'Escamoso', 'Sedoso', 'Liso']
+)
+
+stalk_color_above_ring = st.selectbox(
+    'Cor da estipe acima do anel:',
+    ['Marrom', 'Bege', 'Canela', 'Cinza', 'Laranja', 'Rosa', 'Vermelho', 'Branco', 'Amarelo']
+)
+
+stalk_color_below_ring = st.selectbox(
+    'Cor da estipe abaixo do anel:',
+    ['Marrom', 'Bege', 'Canela', 'Cinza', 'Laranja', 'Rosa', 'Vermelho', 'Branco', 'Amarelo']
+)
+
+st.markdown("## Anel do cogumelo ")
+
+ring_number = st.selectbox(
+    'Número de aneis:',
+    ['Nenhum', 'Um', 'Dois']
+)
+
+ring_type = st.selectbox(
+    'Tipo de anel:',
+    ['Teia', 'Evanescente', 'Vistoso', 'Grande', 'Nenhum', 'Pingente', 'Revestimento', 'Zona']
+)
+
+st.markdown("## Guelras")
+
+gill_attachment = st.selectbox(
+    'Fixação das guelras',
+    ['Anexado', 'Descendente', 'Livre', 'Entalhado']
+)
+
+gill_spacing = st.selectbox(
+    'Espaçamento entre as guelras:',
+    ['Perto', 'Sobrecarregado', 'Afastadas']
+)
+
+gill_size = st.selectbox(
+    'Tamanho das guelras',
+    ['Largo', 'Estreita']
+)
+
+gill_color = st.selectbox(
+    'Cor das guelras:',
+    ['Preto', 'Marrom', 'Bege', 'Chocolate', 'Cinza', 'Verde', 'Laranja', 'Rosa', 'Roxa', 'Vermelho', 'Branco',
+     'Amarelo']
+)
+
+st.markdown("## Véu do cogumelo ")
+
+veil_type = st.selectbox(
+    'Tipo de véu:',
+    ['Parcial', 'Total']
+)
+
+veil_color = st.selectbox(
+    'Cor do véu:',
+    ['Marrom', 'Laranja', 'Branco', 'Amarelo']
+)
+
+st.markdown("## Outras informações")
+
+bruises = st.selectbox(
+    'Hematomas:',
+    ['Sim', 'Não']
+)
+
+odor = st.selectbox(
+    'Cheiro :',
+    ['Amêndoa', 'Anis', 'Creosote', 'Peixe', 'Fétido', 'Mofo', 'Nenhum', 'Pungente', 'Picante']
+)
+
+spore_print_color = st.selectbox(
+    'Cor de impressão dos esporos :',
+    ['Preto', 'Marrom', 'Bege', "Chocolate", 'Verde', 'Laranja', 'Roxo', 'Branco', 'Amarelo']
+)
+
+population = st.selectbox(
+    'População :',
+    ['Abundante', 'Agrupado', 'Numeroso', 'Disperso', 'Varios', 'Solitario']
+)
+
+habitat = st.selectbox(
+    'Habitate :',
+    ['Grama', 'Folhas', 'Prados', 'Caminho', 'Urbano', 'Lixo', 'Bosques']
+)
 
 data = {
     'cap-shape': [cap_shape],
@@ -58,7 +173,8 @@ model = call_model()
 
 r = model.predict_proba(df)
 
-proba = r[:, 1][0]
+proba = r[0][1]
+
 
 st.markdown(f"### Resultado do cogumelo pesquisado:")
 
